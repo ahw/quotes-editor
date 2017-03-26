@@ -13,6 +13,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy-gamma": "aws --profile s3access s3 sync build s3://quotes-editor --recursive --acl public-read --cache-control no-cache --delete --exclude \".git/*\" --exclude \"node_modules/*\" --exclude \".DS_Store\""
   }
 }
