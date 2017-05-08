@@ -58,7 +58,6 @@ class QuoteAndSource extends React.Component {
             marginTop: 8,
             fontSize: '11px',
             fontFamily: 'Arial',
-            color: this.props.sourceColor || this.props.color,
         }
         
         let quoteStyle = {
@@ -78,7 +77,7 @@ class QuoteAndSource extends React.Component {
 class QuoteContainer extends React.Component {
     
     render() {
-        console.log('Rednering QuoteContainer with quotes', this.props.quotes);
+        // console.log('Rednering QuoteContainer with quotes', this.props.quotes);
         let style = {
             background: this.props.inverted ? this.props.color : this.props.backgroundColor,
             color: this.props.inverted ? this.props.backgroundColor : this.props.color,
@@ -154,7 +153,10 @@ class LayoutEditor extends React.Component {
             textAlign: 'center',
         }
         
+        console.log('LayoutEditor props', this.props);
+        console.log('this.props.onCssChange', this.props.onCssChange);
         return (<div style={{padding: 2}}>
+            <textarea id="extracss" value={this.props.extraCss} onChange={this.props.onCssChange.bind(this)}></textarea>
             <input
                 style={toggleLinkStyle}
                 type="number" value={this.props.padding}
@@ -167,11 +169,6 @@ class LayoutEditor extends React.Component {
                 style={toggleLinkStyle}
                 value={this.props.color}
                 onChange={this.props.onLayoutChange.bind(this, 'color')}/>
-            <label>Source color</label>
-            <input
-                style={toggleLinkStyle}
-                value={this.props.sourceColor}
-                onChange={this.props.onLayoutChange.bind(this, 'sourceColor')}/>
             <a href="#"
                 style={Object.assign({}, toggleLinkStyle, {
                         width: 'calc(50% - 1px)',
@@ -224,7 +221,6 @@ class App extends React.Component {
     constructor() {
         super()
         this.state = {
-            rawText: this.getCleanedRawText(defaultRawText),
             startX: 0,
             startY: 0,
             inverted: false,
@@ -233,15 +229,33 @@ class App extends React.Component {
             color: 'white',
             showOverlay: false,
             linespacing: 0,
-        }
+            hash: {
+                rawText: defaultRawText,
+            },
+        };
+    }
+
+    updateHash(hash) {
+        const newHash = Object.assign({}, this.state.hash, hash);
+        const str = Object.keys(newHash).map(key => {
+            const value = newHash[key];
+            return `${key}=${encodeURIComponent(value)}`;
+        }).join('&');
+
+        window.location.hash = str;
+        this.setState({ hash: newHash });
     }
     
     componentDidMount() {
-        let hash = window.location.hash
-        if (hash && hash !== '#') {
-            let rawText = window.decodeURIComponent(hash.match(/^#?(.+)$/)[1])
-            this.setState({ rawText })
-        }
+        const hash = {};
+        const hashStr = window.location.hash
+        const pairs = hashStr.replace(/^#/, '').split('&');
+        pairs.forEach(pair => {
+            const [key, value] = pair.split('=');
+            hash[key] = decodeURIComponent(value);
+        });
+
+        this.setState({ hash })
     }
     
     getCleanedRawText(text) {
@@ -250,15 +264,32 @@ class App extends React.Component {
     
     handleRawTextChange(e) {
         let rawText = this.getCleanedRawText(e.target.value)
-        let hash = window.encodeURIComponent(rawText)
-        window.location.hash = hash
-        this.setState({ rawText })
+        const hash = Object.assign({}, { rawText });
+        this.updateHash(hash);
     }
         
     getRawTextFromQuotes(quotes) {
         return quotes.map(item => item.quote + ' - ' + item.source).join('\n\n')
     }
-        
+
+    // setExtraCss(extraCss) {
+    //     let style = document.getElementById('extraCssStyle');
+    //     if (!style) {
+    //         style = document.createElement('style');
+    //         style.id = 'extraCssStyle';
+    //         document.head.appendChild(style);
+    //     }
+
+    //     console.log('Setting extra CSS to', extraCss);
+    //     this.updateHash({ extraCss });
+    //     style.innerHTML = extraCss;
+    // }
+
+    handleCssChange(e) {
+        const extraCss = e.target.value;
+        this.updateHash({ extraCss });
+    }
+
     handleLayoutChange(property, e) {
         if (e.type === 'click' && this.state.hasTouch) {
             // Ignore
@@ -359,14 +390,14 @@ class App extends React.Component {
                     });
 
                 // quote = quote.replace(/'(.*)'/g, '\u2018$1\u2019').replace(/"(.*)"/g, '\u201C$1\u201D')
-                console.log(`Quote: "${quote}" Source: "${source}"`);
+                // console.log(`Quote: "${quote}" Source: "${source}"`);
                 return { quote, source }
             })
     }
         
     render() {
-        let quotes = this.getQuotes(this.state.rawText)
-        console.log(quotes);
+        // console.log(this.state.hash);
+        let quotes = this.getQuotes(this.state.hash.rawText)
         let squareOverlayStyle = {
             background: 'red',
             opacity: 0.2,
@@ -380,24 +411,27 @@ class App extends React.Component {
         }
         
         setTimeout(() => window.smartquotes && window.smartquotes(), 200)
+
         return (
             <div> 
+                <style dangerouslySetInnerHTML={{__html: this.state.hash.extraCss}} />
                 {this.state.showOverlay ? <div style={squareOverlayStyle}/> : null}
                 <QuoteEditor
-                    rawText={this.state.rawText}
+                    rawText={this.state.hash.rawText}
                     onChange={this.handleRawTextChange.bind(this)}/>
                 <LayoutEditor
                     padding={this.state.padding}
                     backgroundColor={this.state.backgroundColor}
                     color={this.state.color}
-                    onLayoutChange={this.handleLayoutChange.bind(this)}/>
+                    onLayoutChange={this.handleLayoutChange.bind(this)}
+                    extraCss={this.state.hash.extraCss}
+                    onCssChange={this.handleCssChange.bind(this)}/>
                 <QuoteContainer
                     inverted={this.state.inverted}
                     padding={this.state.padding}
                     color={this.state.color}
                     backgroundColor={this.state.backgroundColor}
                     linespacing={this.state.linespacing}
-                    sourceColor={this.state.sourceColor}
                     quotes={quotes}/>
                 <SpreadsheetDisplay quotes={quotes}/>
             </div>
