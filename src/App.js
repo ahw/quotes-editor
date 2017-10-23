@@ -2,6 +2,9 @@ import React from 'react';
 // import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import QuoteEditor from './QuoteEditor';
+import LayoutEditor from './LayoutEditor';
+import QuoteContainer from './QuoteContainer';
 
 const defaultRawText = `
 She's nice. She's normal. - 8th Ave and W 41st St
@@ -16,93 +19,20 @@ const spreadsheetLineRegex = /^(.+)\t(.+)$/
 function getOrdinalSuffix(i) {
     var j = i % 10,
         k = i % 100;
-    if (j == 1 && k != 11) {
+    if (j === 1 && k !== 11) {
         return "st";
     }
-    if (j == 2 && k != 12) {
+    if (j === 2 && k !== 12) {
         return "nd";
     }
-    if (j == 3 && k != 13) {
+    if (j === 3 && k !== 13) {
         return "rd";
     }
     return "th";
 }
 
-class QuoteEditor extends React.Component {
-    render() {
-        let style = {
-            width: '100%',
-            height: '30vh',
-            border: 'none',
-            borderBottom: '1px solid gray',
-            outline: 'none',
-            boxSizing: 'border-box',
-            padding: 5,
-            fontSize: 16,
-        }
-        return <textarea style={style} value={this.props.rawText} onChange={this.props.onChange}/>
-    }
-}
 
-class QuoteAndSource extends React.Component {
-    render() {
-        let containerStyle = {
-            padding: '5px 10px',
-            fontFamily: 'Georgia',
-            marginBottom: this.props.linespacing,
-        }
-        
-        let sourceStyle = {
-            display: 'block',
-            textAlign: 'right',
-            marginTop: 8,
-            fontSize: '11px',
-            fontFamily: 'Arial',
-        }
-        
-        let quoteStyle = {
-            fontWeight: 'normal',
-            display: 'block',
-        }
-        
-        return (
-            <div style={containerStyle} className="quote-container">
-                <span style={quoteStyle} className="quote">&ldquo;{this.props.quote}&rdquo;</span>
-                <span style={sourceStyle} className="source">{this.props.source}</span>
-            </div>
-        )
-    }    
-}
 
-class QuoteContainer extends React.Component {
-    
-    render() {
-        // console.log('Rednering QuoteContainer with quotes', this.props.quotes);
-        let style = {
-            background: this.props.inverted ? this.props.color : this.props.backgroundColor,
-            color: this.props.inverted ? this.props.backgroundColor : this.props.color,
-            padding: `40px ${this.props.padding}px`,
-            width: '100vw',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            minHeight: '100vh',
-            boxSizing: 'border-box',
-        }
-        
-        
-        let children = this.props.quotes.map(item => {
-            return (<QuoteAndSource
-                        key={item.quote + item.source}
-                        {...item}
-                        {...this.props}/>)
-        })
-        
-        return <div
-                   onClick={this.props.onClick}
-                   style={style} id="all-quotes-container">{children}</div>
-    }    
-}
 
 class SpreadsheetDisplay extends React.Component {
     
@@ -131,104 +61,21 @@ class SpreadsheetDisplay extends React.Component {
         return <textarea style={style} value={children}/>
     }    
 }
-class LayoutEditor extends React.Component {
-    constructor() {
-        super();
-    }
-    
-    render() {
-        const toggleLinkStyle = {
-            background: 'white',
-            border: '2px solid black',
-            borderRadius: 2,
-            fontWeight: 'bold',
-            color: 'black',
-            textDecoration: 'none',
-            padding: 12,
-            display: 'block',
-            width: '100%',
-            margin: '2px 0',
-            boxSizing: 'border-box',
-            fontSize: 14,
-            textAlign: 'center',
-        }
-        
-        console.log('LayoutEditor props', this.props);
-        console.log('this.props.onCssChange', this.props.onCssChange);
-        return (<div style={{padding: 2}}>
-            <textarea id="extracss" value={this.props.extraCss} onChange={this.props.onCssChange.bind(this)}></textarea>
-            <input
-                style={toggleLinkStyle}
-                type="number" value={this.props.padding}
-                onChange={this.props.onLayoutChange.bind(this, 'padding')}/>
-            <input
-                style={toggleLinkStyle}
-                value={this.props.backgroundColor}
-                onChange={this.props.onLayoutChange.bind(this, 'backgroundColor')}/>
-            <input
-                style={toggleLinkStyle}
-                value={this.props.color}
-                onChange={this.props.onLayoutChange.bind(this, 'color')}/>
-            <a href="#"
-                style={Object.assign({}, toggleLinkStyle, {
-                        width: 'calc(50% - 1px)',
-                        display: 'inline-block',
-                        marginRight: 2,
-                })}
-                onClick={this.props.onLayoutChange.bind(this, 'decrement_padding')}
-                onTouchStart={this.props.onLayoutChange.bind(this, 'decrement_padding')}
-                >- margin</a>
-            <a href="#"
-                style={Object.assign({}, toggleLinkStyle, {
-                        width: 'calc(50% - 1px)',
-                        display: 'inline-block',
-                })}
-                onClick={this.props.onLayoutChange.bind(this, 'increment_padding')}
-                onTouchStart={this.props.onLayoutChange.bind(this, 'increment_padding')}
-                >+ margin</a>
-            <a href="#"
-                style={Object.assign({}, toggleLinkStyle, {
-                        width: 'calc(50% - 1px)',
-                        display: 'inline-block',
-                        marginRight: 2,
-                })}
-                onClick={this.props.onLayoutChange.bind(this, 'decrement_linespacing')}
-                onTouchStart={this.props.onLayoutChange.bind(this, 'decrement_linespacing')}
-                >- line spacing</a>
-            <a href="#"
-                style={Object.assign({}, toggleLinkStyle, {
-                        width: 'calc(50% - 1px)',
-                        display: 'inline-block',
-                })}
-                onClick={this.props.onLayoutChange.bind(this, 'increment_linespacing')}
-                onTouchStart={this.props.onLayoutChange.bind(this, 'increment_linespacing')}
-                >+ line spacing</a>
-            <a
-                style={toggleLinkStyle}
-                href="#"
-                onTouchStart={this.props.onLayoutChange.bind(this, 'toggle_showOverlay')}
-                onClick={this.props.onLayoutChange.bind(this, 'toggle_showOverlay')}>Toggle Overlay</a>
-            <a
-                style={toggleLinkStyle}
-                href="#"
-                onTouchStart={this.props.onLayoutChange.bind(this, 'toggle_inverted')}
-                onClick={this.props.onLayoutChange.bind(this, 'toggle_inverted')}>Invert Colors</a>
-        </div>);
-    }
-}
+
 
 class App extends React.Component {
     constructor() {
         super()
         this.state = {
-            startX: 0,
-            startY: 0,
+            layoutStyles :{
+                padding: 30,
+                backgroundColor: 'black',
+                color: 'white',
+                marginBottom: 10,
+                margin: 0,
+            },
             inverted: false,
-            padding: 30,
-            backgroundColor: 'black',
-            color: 'white',
             showOverlay: false,
-            linespacing: 0,
             hash: {
                 rawText: defaultRawText,
             },
@@ -310,6 +157,7 @@ class App extends React.Component {
             value = !this.state[property]
         }
         
+        /*
         if (/^increment/.test(property)) {
             property = property.replace(/^increment_/, '')
             value = this.state[property] + 1
@@ -319,10 +167,11 @@ class App extends React.Component {
             property = property.replace(/^decrement_/, '')
             value = this.state[property] - 1
         }
+        */
         
         this.setState({
             hasTouch: e.type === 'touchstart' || this.state.hasTouch,
-            [property]: value
+            layoutStyles: Object.assign({}, this.state.layoutStyles, { [property]: value }),
         })
     }
         
@@ -408,7 +257,9 @@ class App extends React.Component {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-        }
+        };
+
+        const { layoutStyles } = this.state;
         
         setTimeout(() => window.smartquotes && window.smartquotes(), 200)
 
@@ -420,18 +271,16 @@ class App extends React.Component {
                     rawText={this.state.hash.rawText}
                     onChange={this.handleRawTextChange.bind(this)}/>
                 <LayoutEditor
-                    padding={this.state.padding}
-                    backgroundColor={this.state.backgroundColor}
-                    color={this.state.color}
+                    layoutStyles={layoutStyles}
                     onLayoutChange={this.handleLayoutChange.bind(this)}
                     extraCss={this.state.hash.extraCss}
                     onCssChange={this.handleCssChange.bind(this)}/>
                 <QuoteContainer
                     inverted={this.state.inverted}
-                    padding={this.state.padding}
-                    color={this.state.color}
-                    backgroundColor={this.state.backgroundColor}
-                    linespacing={this.state.linespacing}
+                    padding={layoutStyles.padding}
+                    color={layoutStyles.color}
+                    backgroundColor={layoutStyles.backgroundColor}
+                    marginBottom={layoutStyles.marginBottom}
                     quotes={quotes}/>
                 <SpreadsheetDisplay quotes={quotes}/>
             </div>

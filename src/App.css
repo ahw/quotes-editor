@@ -27,3 +27,33 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.control {
+    border-bottom: 1px solid #fafafa;
+    /* position: relative; */
+    /* min-height: 2em; */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top:2px;
+}
+
+
+.control label {
+    align-self: center;
+}
+
+.control input {
+    transition: 500ms;
+    padding: 5px;
+    font-size:16px;
+    width:70%;
+    border: none;
+    background: #f3f3f3;
+}
+
+.control input:focus {
+    outline: none;
+    background: #fafafa;
+}
