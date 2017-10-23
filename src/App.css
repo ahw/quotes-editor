@@ -57,3 +57,19 @@
     outline: none;
     background: #fafafa;
 }
+
+#main-quote-editor {
+    width: 100%;
+    height: 30vh;
+    border: none;
+    border-bottom: 1px solid gray;
+    outline: none;
+    box-sizing: border-box;
+    padding: 5;
+    font-size: 16;
+    transition: 500ms;
+}
+
+#main-quote-editor:focus {
+    height: 90vh;
+}
