@@ -42,8 +42,8 @@ class SpreadsheetDisplay extends React.Component {
         let bgcolor = `#${bgmatches && bgmatches[1] || '000'}`
         let fgcolor = `#${fgmatches && fgmatches[1] || 'fff'}`
         let style = {
-            background: this.props.inverted ? fgcolor : bgcolor,
-            color: this.props.inverted ? bgcolor : fgcolor,
+            background: this.props.invertedColors ? fgcolor : bgcolor,
+            color: this.props.invertedColors ? bgcolor : fgcolor,
             padding: `40px ${this.props.padding}px`,
             width: '100vw',
             // display: 'flex',
@@ -74,7 +74,7 @@ class App extends React.Component {
                 marginBottom: 10,
                 margin: 0,
             },
-            inverted: false,
+            invertedColors: false,
             showOverlay: false,
             hash: {
                 rawText: defaultRawText,
@@ -137,6 +137,14 @@ class App extends React.Component {
         this.updateHash({ extraCss });
     }
 
+    handleInvertColors() {
+        this.setState({ invertedColors: !this.state.invertedColors });
+    }
+
+    handleOverlayToggle() {
+        this.setState({ showOverlay: !this.state.showOverlay });
+    }
+
     handleLayoutChange(property, e) {
         if (e.type === 'click' && this.state.hasTouch) {
             // Ignore
@@ -150,11 +158,6 @@ class App extends React.Component {
         
         if (e.target && typeof e.target.value !== 'undefined') {
             value = e.target.value
-        }
-        
-        if (/^toggle/.test(property)) {
-            property = property.replace(/^toggle_/, '')
-            value = !this.state[property]
         }
         
         /*
@@ -266,17 +269,21 @@ class App extends React.Component {
         return (
             <div> 
                 <style dangerouslySetInnerHTML={{__html: this.state.hash.extraCss}} />
-                {this.state.showOverlay ? <div style={squareOverlayStyle}/> : null}
+                {this.state.showOverlay ? <div onClick={this.handleOverlayToggle.bind(this)} style={squareOverlayStyle}/> : null}
                 <QuoteEditor
                     rawText={this.state.hash.rawText}
                     onChange={this.handleRawTextChange.bind(this)}/>
                 <LayoutEditor
                     layoutStyles={layoutStyles}
                     onLayoutChange={this.handleLayoutChange.bind(this)}
+                    onOverlayToggle={this.handleOverlayToggle.bind(this)}
+                    onInvertColors={this.handleInvertColors.bind(this)}
                     extraCss={this.state.hash.extraCss}
+                    showOverlay={this.state.showOverlay}
+                    invertedColors={this.state.invertedColors}
                     onCssChange={this.handleCssChange.bind(this)}/>
                 <QuoteContainer
-                    inverted={this.state.inverted}
+                    invertedColors={this.state.invertedColors}
                     padding={layoutStyles.padding}
                     color={layoutStyles.color}
                     backgroundColor={layoutStyles.backgroundColor}

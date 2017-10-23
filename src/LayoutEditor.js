@@ -27,16 +27,8 @@ export default function LayoutEditor(props) {
         <Control label="Text color" type="text" value={props.layoutStyles.color} onChange={props.onLayoutChange.bind(this, 'color')} />
         <Control label="Margin" type="range" value={props.layoutStyles.margin} min={0} max={50} onChange={props.onLayoutChange.bind(this, 'margin')} />
         <Control label="Bottom margin" type="range" value={props.layoutStyles.marginBottom} min={-40} max={50} onChange={props.onLayoutChange.bind(this, 'marginBottom')} />
-        <a
-            style={toggleLinkStyle}
-            href="#"
-            onTouchStart={props.onLayoutChange.bind(this, 'toggle_showOverlay')}
-            onClick={props.onLayoutChange.bind(this, 'toggle_showOverlay')}>Toggle Overlay</a>
-        <a
-            style={toggleLinkStyle}
-            href="#"
-            onTouchStart={props.onLayoutChange.bind(this, 'toggle_inverted')}
-            onClick={props.onLayoutChange.bind(this, 'toggle_inverted')}>Invert Colors</a>
+        <Control label="Toggle overlay" type="checkbox" value={props.showOverlay} onChange={props.onOverlayToggle} />
+        <Control label="Invert colors" type="checkbox" value={props.invertColors} onChange={props.onInvertColors} />
     </div>);
 }
 

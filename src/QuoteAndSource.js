@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function QuoteAndSource(props) {
-    console.log('Rendering QuoteAndSource', props.marginBottom);
     const containerStyle = {
         padding: '5px 10px',
         fontFamily: 'Georgia',

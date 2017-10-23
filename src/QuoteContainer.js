@@ -4,8 +4,8 @@ import QuoteAndSource from './QuoteAndSource';
 
 export default function QuoteContainer(props) {
     let style = {
-        background: props.inverted ? props.color : props.backgroundColor,
-        color: props.inverted ? props.backgroundColor : props.color,
+        background: props.invertedColors ? props.color : props.backgroundColor,
+        color: props.invertedColors ? props.backgroundColor : props.color,
         padding: `40px ${props.padding}px`,
         // width: '100vw',
         // display: 'flex',
