@@ -65,8 +65,8 @@
     border-bottom: 1px solid gray;
     outline: none;
     box-sizing: border-box;
-    padding: 5;
-    font-size: 16;
+    padding: 5px;
+    font-size: 16px;
     transition: 500ms;
 }
 
