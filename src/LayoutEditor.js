@@ -21,7 +21,7 @@ export default function LayoutEditor(props) {
     }
     
     return (<div style={{padding: 2}}>
-        <textarea id="extracss" value={props.extraCss} onChange={props.onCssChange.bind(this)}></textarea>
+        <Control label="Extra CSS" type="text" value={props.extraCss} onChange={props.onCssChange.bind(this)} />
         <Control label="Padding" type="range" min={0} max={200} value={props.layoutStyles.padding} onChange={props.onLayoutChange.bind(this, 'padding')} />
         <Control label="Background color" type="text" value={props.layoutStyles.backgroundColor} onChange={props.onLayoutChange.bind(this, 'backgroundColor')} />
         <Control label="Text color" type="text" value={props.layoutStyles.color} onChange={props.onLayoutChange.bind(this, 'color')} />
