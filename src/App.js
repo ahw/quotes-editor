@@ -7,12 +7,10 @@ import LayoutEditor from './LayoutEditor';
 import QuoteContainer from './QuoteContainer';
 import SpreadsheetDisplay from './SpreadsheetDisplay';
 
-const defaultRawText = `
-She's nice. She's normal. - 8th Ave and W 41st St
+const defaultRawText = `She's nice. She's normal. - 8th Ave and W 41st St
 Have you met her yet? - Bryant Park
 No. Well—no. - 6th Ave and W 40th St
-She's psycho. - Bryant Park
-`;
+She's psycho. - Bryant Park`;
 
 const iphoneNotesRegex = /^(.+)\s[-–—]\s(.*)$/
 const spreadsheetLineRegex = /^(.+)\t(.+)$/
@@ -38,6 +36,7 @@ class App extends React.Component {
     constructor() {
         super()
         this.state = {
+            editorHasFocus: false,
             layoutStyles :{
                 padding: 30,
                 backgroundColor: 'black',
@@ -244,6 +243,9 @@ class App extends React.Component {
                 {this.state.showOverlay ? <div onClick={this.handleOverlayToggle.bind(this)} style={squareOverlayStyle}/> : null}
                 <QuoteEditor
                     rawText={this.state.hash.rawText}
+                    editorHasFocus={this.state.editorHasFocus}
+                    onFocus={() => this.setState({ editorHasFocus: true })}
+                    onCloseButtonClick={() => this.setState({ editorHasFocus: false })}
                     onChange={this.handleRawTextChange.bind(this)}/>
                 <LayoutEditor
                     layoutStyles={layoutStyles}

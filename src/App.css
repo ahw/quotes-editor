@@ -60,16 +60,63 @@
 
 #main-quote-editor {
     width: 100%;
-    height: 30vh;
-    border: none;
-    border-bottom: 1px solid gray;
+    height: 100%;
     outline: none;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 10px;
     font-size: 16px;
     transition: 500ms;
+    box-shadow: 8px 8px 30px -10px black;
+    border: 1px solid black;
 }
 
 #main-quote-editor:focus {
     /* height: 90vh; */
+}
+
+#quote-editor-container {
+    position:relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    box-sizing:border-box;
+    padding: 30px;
+}
+
+#quote-editor-close {
+    height: 90px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align:center;
+    left: 0;
+    background: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#quote-editor-container.not-focused #quote-editor-close {
+    display: none;
+}
+
+#quote-editor-close span {
+    font-size: 48px;
+}
+
+#quote-editor-container.not-focused {
+    position:relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: auto;;
+    box-sizing:border-box;
+    padding: 0;
+}
+
+#quote-editor-container.not-focused #main-quote-editor {
+    box-shadow: none;
 }
