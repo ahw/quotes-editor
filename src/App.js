@@ -5,6 +5,7 @@ import './App.css';
 import QuoteEditor from './QuoteEditor';
 import LayoutEditor from './LayoutEditor';
 import QuoteContainer from './QuoteContainer';
+import SpreadsheetDisplay from './SpreadsheetDisplay';
 
 const defaultRawText = `
 She's nice. She's normal. - 8th Ave and W 41st St
@@ -31,36 +32,6 @@ function getOrdinalSuffix(i) {
     return "th";
 }
 
-
-
-
-class SpreadsheetDisplay extends React.Component {
-    
-    render() {
-        let bgmatches = window.location.search.match(/bgcolor=(\w+)/)
-        let fgmatches = window.location.search.match(/fgcolor=(\w+)/)
-        let bgcolor = `#${bgmatches && bgmatches[1] || '000'}`
-        let fgcolor = `#${fgmatches && fgmatches[1] || 'fff'}`
-        let style = {
-            background: this.props.invertedColors ? fgcolor : bgcolor,
-            color: this.props.invertedColors ? bgcolor : fgcolor,
-            padding: `40px ${this.props.padding}px`,
-            width: '100vw',
-            // display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            minHeight: '100vh',
-            boxSizing: 'border-box',
-        }
-        
-        
-        let children = this.props.quotes.map(item => {
-            return item.quote + '\t' + item.source;
-        }).join('\n');
-        
-        return <textarea style={style} value={children}/>
-    }    
-}
 
 
 class App extends React.Component {
