@@ -68,12 +68,13 @@ class App extends React.Component {
         const hash = {};
         const hashStr = window.location.hash
         const pairs = hashStr.replace(/^#/, '').split('&');
-        pairs.forEach(pair => {
+        pairs.filter(pair => pair).forEach(pair => {
             const [key, value] = pair.split('=');
             hash[key] = decodeURIComponent(value);
         });
 
-        this.setState({ hash })
+        const newHash = Object.assign({}, this.state.hash, hash);
+        this.setState({ hash: newHash })
     }
     
     getCleanedRawText(text) {
