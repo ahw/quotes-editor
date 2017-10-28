@@ -62,7 +62,7 @@ class App extends React.Component {
         window.location.hash = str;
         this.setState({ hash: newHash });
     }
-    
+
     componentDidMount() {
         const hash = {};
         const hashStr = window.location.hash
@@ -75,17 +75,17 @@ class App extends React.Component {
         const newHash = Object.assign({}, this.state.hash, hash);
         this.setState({ hash: newHash })
     }
-    
+
     getCleanedRawText(text) {
         return text
     }
-    
+
     handleRawTextChange(e) {
         let rawText = this.getCleanedRawText(e.target.value)
         const hash = Object.assign({}, { rawText });
         this.updateHash(hash);
     }
-        
+
     getRawTextFromQuotes(quotes) {
         return quotes.map(item => item.quote + ' - ' + item.source).join('\n\n')
     }
@@ -126,29 +126,29 @@ class App extends React.Component {
         if (e.target) {
             e.preventDefault();
         }
-        
+
         if (e.target && typeof e.target.value !== 'undefined') {
             value = e.target.value
         }
-        
+
         /*
         if (/^increment/.test(property)) {
             property = property.replace(/^increment_/, '')
             value = this.state[property] + 1
         }
-        
+
         if (/^decrement/.test(property)) {
             property = property.replace(/^decrement_/, '')
             value = this.state[property] - 1
         }
         */
-        
+
         this.setState({
             hasTouch: e.type === 'touchstart' || this.state.hasTouch,
             layoutStyles: Object.assign({}, this.state.layoutStyles, { [property]: value }),
         })
     }
-        
+
     getQuotes(rawText) {
         // rawText.split('\n').forEach(line => {
         //     console.log('matches spreadsheet regex?', spreadsheetLineRegex.test(line));
@@ -167,7 +167,7 @@ class App extends React.Component {
                 } else {
                     console.warn(`Line does not match any of the patterns "${line}"`);
                 }
-                
+
                 let spreadsheetMatches = line.match(spreadsheetLineRegex)
                 let [_, quote, source] = matches
 
@@ -217,7 +217,7 @@ class App extends React.Component {
                 return { quote, source }
             })
     }
-        
+
     render() {
         // console.log(this.state.hash);
         let quotes = this.getQuotes(this.state.hash.rawText)
@@ -234,11 +234,11 @@ class App extends React.Component {
         };
 
         const { layoutStyles } = this.state;
-        
+
         setTimeout(() => window.smartquotes && window.smartquotes(), 200)
 
         return (
-            <div> 
+            <div>
                 <style dangerouslySetInnerHTML={{__html: this.state.hash.extraCss}} />
                 {this.state.showOverlay ? <div onClick={this.handleOverlayToggle.bind(this)} style={squareOverlayStyle}/> : null}
                 <QuoteEditor
