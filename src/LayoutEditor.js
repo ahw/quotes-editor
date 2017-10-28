@@ -23,8 +23,8 @@ export default function LayoutEditor(props) {
     return (<div style={{padding: 5}}>
         <Control label="Extra CSS" type="text" value={props.extraCss} onChange={props.onCssChange.bind(this)} />
         <Control label="Padding" type="range" min={0} max={200} value={props.layoutStyles.padding} onChange={props.onLayoutChange.bind(this, 'padding')} />
-        <Control label="Background color" type="text" value={props.layoutStyles.backgroundColor} onChange={props.onLayoutChange.bind(this, 'backgroundColor')} />
-        <Control label="Text color" type="text" value={props.layoutStyles.color} onChange={props.onLayoutChange.bind(this, 'color')} />
+        <Control label="Background color" type="color" value={props.layoutStyles.backgroundColor} onChange={props.onLayoutChange.bind(this, 'backgroundColor')} />
+        <Control label="Text color" type="color" value={props.layoutStyles.color} onChange={props.onLayoutChange.bind(this, 'color')} />
         <Control label="Quote spacing" type="range" value={props.layoutStyles.marginBottom} min={-40} max={100} onChange={props.onLayoutChange.bind(this, 'marginBottom')} />
         <Control label="Toggle overlay" type="checkbox" value={props.showOverlay} onChange={props.onOverlayToggle} />
         <Control label="Invert colors" type="checkbox" value={props.invertColors} onChange={props.onInvertColors} />
