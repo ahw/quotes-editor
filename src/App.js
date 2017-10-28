@@ -101,8 +101,6 @@ class App extends React.Component {
     //         style.id = 'extraCssStyle';
     //         document.head.appendChild(style);
     //     }
-
-    //     console.log('Setting extra CSS to', extraCss);
     //     this.updateHash({ extraCss });
     //     style.innerHTML = extraCss;
     // }
@@ -121,7 +119,6 @@ class App extends React.Component {
     }
 
     handleFileSelect(evt) {
-        console.log('this is handleFileSelect');
         const files = evt.target.files; // FileList object
         // Loop through the FileList and render image files as thumbnails.
         for (let i = 0, f; f = files[i]; i++) {
@@ -134,13 +131,6 @@ class App extends React.Component {
             // Closure to capture the file information.
             reader.onload = (theFile => {
               return e => {
-                  console.log(`File ${theFile.name} has loaded`);
-                  console.log(e.target.result);
-                // Render thumbnail.
-                // var span = document.createElement('span');
-                // span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                //                   '" title="', escape(theFile.name), '"/>'].join('');
-                // document.getElementById('list').insertBefore(span, null);
                 const layoutStyles = Object.assign({}, this.state.layoutStyles, {
                     backgroundImage: `url('${e.target.result}')`
                 });
@@ -177,19 +167,13 @@ class App extends React.Component {
     }
 
     getQuotes(rawText) {
-        // rawText.split('\n').forEach(line => {
-        //     console.log('matches spreadsheet regex?', spreadsheetLineRegex.test(line));
-        //     console.log('matches iphoneNotes regex?', iphoneNotesRegex.test(line));
-        // });
         return rawText.split('\n')
             .filter(line => line && (iphoneNotesRegex.test(line) || spreadsheetLineRegex.test(line)))
             .map(line => {
                 let matches = []
                 if (iphoneNotesRegex.test(line)) {
-                    // console.log(`Line matches iphone regex "${line}"`);
                     matches = line.match(iphoneNotesRegex)
                 } else if (spreadsheetLineRegex.test(line)) {
-                    // console.log(`Line matches spreadsheet regex "${line}"`);
                     matches = line.match(spreadsheetLineRegex)
                 } else {
                     console.warn(`Line does not match any of the patterns "${line}"`);
@@ -240,13 +224,11 @@ class App extends React.Component {
                     });
 
                 // quote = quote.replace(/'(.*)'/g, '\u2018$1\u2019').replace(/"(.*)"/g, '\u201C$1\u201D')
-                // console.log(`Quote: "${quote}" Source: "${source}"`);
                 return { quote, source }
             })
     }
 
     render() {
-        // console.log(this.state.hash);
         let quotes = this.getQuotes(this.state.hash.rawText)
         let squareOverlayStyle = {
             background: 'red',
