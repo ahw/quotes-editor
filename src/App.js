@@ -41,6 +41,9 @@ class App extends React.Component {
                 padding: 30,
                 backgroundColor: 'black',
                 backgroundImage: 'none',
+                backgroundPosition: 'center center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
                 color: 'white',
                 marginBottom: 10,
                 margin: 0,
@@ -166,7 +169,6 @@ class App extends React.Component {
         }
 
         const layoutStyles = Object.assign({}, this.state.layoutStyles, { [property]: value });
-        console.log('New layoutStyles', layoutStyles);
 
         this.setState({
             hasTouch: e.type === 'touchstart' || this.state.hasTouch,
@@ -289,6 +291,9 @@ class App extends React.Component {
                     backgroundColor={layoutStyles.backgroundColor}
                     backgroundImage={layoutStyles.backgroundImage}
                     marginBottom={layoutStyles.marginBottom}
+                    backgroundSize={layoutStyles.backgroundSize}
+                    backgroundPosition={layoutStyles.backgroundPosition}
+                    backgroundRepeat={layoutStyles.backgroundRepeat}
                     quotes={quotes}/>
                 <SpreadsheetDisplay quotes={quotes}/>
             </div>
