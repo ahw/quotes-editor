@@ -1,5 +1,5 @@
 import React from 'react';
-// import Slider from './Slider';
+import BackgroundUploader from './BackgroundUploader';
 
 /**
  * Usage:
@@ -16,7 +16,7 @@ export default function Control(props) {
     return (
         <div className="control">
             <label className="control-label">{label}</label>
-            <input value={value} {...checkedProp} type={type} min={min || 0} max={max || 100} onChange={onChange} />
+            <input className="control-input" value={value} {...checkedProp} type={type} min={min || 0} max={max || 100} onChange={onChange} />
         </div>
     );
 }

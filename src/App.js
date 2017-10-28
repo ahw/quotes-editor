@@ -40,6 +40,7 @@ class App extends React.Component {
             layoutStyles :{
                 padding: 30,
                 backgroundColor: 'black',
+                backgroundImage: 'none',
                 color: 'white',
                 marginBottom: 10,
                 margin: 0,
@@ -116,6 +117,39 @@ class App extends React.Component {
         this.setState({ showOverlay: !this.state.showOverlay });
     }
 
+    handleFileSelect(evt) {
+        console.log('this is handleFileSelect');
+        const files = evt.target.files; // FileList object
+        // Loop through the FileList and render image files as thumbnails.
+        for (let i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+            if (!f.type.match('image.*')) {
+                continue;
+            }
+
+            const reader = new FileReader();
+            // Closure to capture the file information.
+            reader.onload = (theFile => {
+              return e => {
+                  console.log(`File ${theFile.name} has loaded`);
+                  console.log(e.target.result);
+                // Render thumbnail.
+                // var span = document.createElement('span');
+                // span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                //                   '" title="', escape(theFile.name), '"/>'].join('');
+                // document.getElementById('list').insertBefore(span, null);
+                const layoutStyles = Object.assign({}, this.state.layoutStyles, {
+                    backgroundImage: `url('${e.target.result}')`
+                });
+                this.setState({ layoutStyles });
+              };
+            })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
+      }
+    }
+
     handleLayoutChange(property, e) {
         if (e.type === 'click' && this.state.hasTouch) {
             // Ignore
@@ -131,21 +165,12 @@ class App extends React.Component {
             value = e.target.value
         }
 
-        /*
-        if (/^increment/.test(property)) {
-            property = property.replace(/^increment_/, '')
-            value = this.state[property] + 1
-        }
-
-        if (/^decrement/.test(property)) {
-            property = property.replace(/^decrement_/, '')
-            value = this.state[property] - 1
-        }
-        */
+        const layoutStyles = Object.assign({}, this.state.layoutStyles, { [property]: value });
+        console.log('New layoutStyles', layoutStyles);
 
         this.setState({
             hasTouch: e.type === 'touchstart' || this.state.hasTouch,
-            layoutStyles: Object.assign({}, this.state.layoutStyles, { [property]: value }),
+            layoutStyles,
         })
     }
 
@@ -251,6 +276,7 @@ class App extends React.Component {
                     layoutStyles={layoutStyles}
                     onLayoutChange={this.handleLayoutChange.bind(this)}
                     onOverlayToggle={this.handleOverlayToggle.bind(this)}
+                    onFileSelect={this.handleFileSelect.bind(this)}
                     onInvertColors={this.handleInvertColors.bind(this)}
                     extraCss={this.state.hash.extraCss}
                     showOverlay={this.state.showOverlay}
@@ -261,6 +287,7 @@ class App extends React.Component {
                     padding={layoutStyles.padding}
                     color={layoutStyles.color}
                     backgroundColor={layoutStyles.backgroundColor}
+                    backgroundImage={layoutStyles.backgroundImage}
                     marginBottom={layoutStyles.marginBottom}
                     quotes={quotes}/>
                 <SpreadsheetDisplay quotes={quotes}/>

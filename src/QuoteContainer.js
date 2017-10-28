@@ -4,8 +4,9 @@ import QuoteAndSource from './QuoteAndSource';
 
 export default function QuoteContainer(props) {
     let style = {
-        background: props.invertedColors ? props.color : props.backgroundColor,
+        backgroundColor: props.invertedColors ? props.color : props.backgroundColor,
         color: props.invertedColors ? props.backgroundColor : props.color,
+        backgroundImage: props.backgroundImage,
         padding: `40px ${props.padding}px`,
         // width: '100vw',
         // display: 'flex',
@@ -14,17 +15,15 @@ export default function QuoteContainer(props) {
         minHeight: '100vh',
         boxSizing: 'border-box',
     }
-    
-    
+
+
     let children = props.quotes.map(item => {
         return (<QuoteAndSource
                     key={item.quote + item.source}
                     {...item}
                     {...props}/>)
     });
-    
-    return <div
-               onClick={props.onClick}
-               style={style} id="all-quotes-container">{children}</div>
+
+    return <div style={style} id="all-quotes-container">{children}</div>
 }
 
