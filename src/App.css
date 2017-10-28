@@ -127,3 +127,21 @@
 #quote-editor-container.not-focused #main-quote-editor {
     box-shadow: none;
 }
+
+.quote-container {
+    padding: 5px 10px;
+    font-family: Georgia;
+}
+
+.quote-text {
+    font-weight: normal;
+    display: block;
+}
+
+.source-text {
+    display: block;
+    text-align: right;
+    margin-top: 8;
+    font-size: 11px;
+    font-family: Arial;
+}
