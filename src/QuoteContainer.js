@@ -21,10 +21,16 @@ export default function QuoteContainer(props) {
 
 
     let children = props.quotes.map(item => {
-        return (<QuoteAndSource
+        return (
+            <QuoteAndSource
                     key={item.quote + item.source}
-                    {...item}
-                    {...props}/>)
+                    marginBottom={props.marginBottom}
+                    backgroundColor={props.backgroundColor}
+                    color={props.color}
+                    invertedColors={props.invertedColors}
+                    quote={item.quote}
+                    source={item.source} />
+        );
     });
 
     return <div style={style} id="all-quotes-container">{children}</div>
