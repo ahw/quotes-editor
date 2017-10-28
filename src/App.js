@@ -37,7 +37,7 @@ class App extends React.Component {
         super()
         this.state = {
             editorHasFocus: false,
-            layoutStyles :{
+            layoutStyles: {
                 padding: 30,
                 backgroundColor: '#000000',
                 backgroundImage: 'none',
@@ -45,6 +45,7 @@ class App extends React.Component {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 color: '#ffffff',
+                opacity: 1,
                 marginBottom: 10,
                 margin: 0,
             },
@@ -276,6 +277,7 @@ class App extends React.Component {
                     backgroundSize={layoutStyles.backgroundSize}
                     backgroundPosition={layoutStyles.backgroundPosition}
                     backgroundRepeat={layoutStyles.backgroundRepeat}
+                    opacity={layoutStyles.opacity}
                     quotes={quotes}/>
                 <SpreadsheetDisplay quotes={quotes}/>
             </div>
