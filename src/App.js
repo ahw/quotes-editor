@@ -48,6 +48,8 @@ class App extends React.Component {
                 opacity: 1,
                 marginBottom: 10,
                 margin: 0,
+                quoteAndSourcePadding: 5,
+                borderRadius: 4,
             },
             invertedColors: false,
             showOverlay: false,
@@ -277,6 +279,8 @@ class App extends React.Component {
                     backgroundSize={layoutStyles.backgroundSize}
                     backgroundPosition={layoutStyles.backgroundPosition}
                     backgroundRepeat={layoutStyles.backgroundRepeat}
+                    quoteAndSourcePadding={layoutStyles.quoteAndSourcePadding}
+                    borderRadius={layoutStyles.borderRadius}
                     opacity={layoutStyles.opacity}
                     quotes={quotes}/>
                 <SpreadsheetDisplay quotes={quotes}/>

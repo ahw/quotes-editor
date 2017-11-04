@@ -33,5 +33,7 @@ export default function LayoutEditor(props) {
         <Control label="Text color" type="color" value={props.layoutStyles.color} onChange={props.onLayoutChange.bind(this, 'color')} />
         <Control label="Quote spacing" type="range" value={props.layoutStyles.marginBottom} min={-40} max={100} onChange={props.onLayoutChange.bind(this, 'marginBottom')} />
         <Control label="Side margins" type="range" min={0} max={200} value={props.layoutStyles.padding} onChange={props.onLayoutChange.bind(this, 'padding')} />
+        <Control label="Inner padding" type="range" min={0} max={100} value={props.layoutStyles.quoteAndSourcePadding} onChange={props.onLayoutChange.bind(this, 'quoteAndSourcePadding')} />
+        <Control label="Border radius" type="range" min={0} max={50} value={props.layoutStyles.borderRadius} onChange={props.onLayoutChange.bind(this, 'borderRadius')} />
     </div>);
 }

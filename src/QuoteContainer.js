@@ -25,6 +25,8 @@ export default function QuoteContainer(props) {
             <QuoteAndSource
                     key={item.quote + item.source}
                     marginBottom={props.marginBottom}
+                    padding={props.quoteAndSourcePadding}
+                    borderRadius={props.borderRadius}
                     backgroundColor={props.backgroundColor}
                     opacity={props.opacity}
                     color={props.color}
