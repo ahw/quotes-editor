@@ -26,11 +26,13 @@ export default function QuoteContainer(props) {
                     key={item.quote + item.source}
                     marginBottom={props.marginBottom}
                     padding={props.quoteAndSourcePadding}
+                    sourceTopMargin={props.sourceTopMargin}
                     borderRadius={props.borderRadius}
                     backgroundColor={props.backgroundColor}
                     opacity={props.opacity}
                     color={props.color}
                     invertedColors={props.invertedColors}
+                    hideSource={props.hideSource}
                     quote={item.quote}
                     source={item.source} />
         );

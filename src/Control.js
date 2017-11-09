@@ -12,11 +12,17 @@ import BackgroundUploader from './BackgroundUploader';
  */
 export default function Control(props) {
     const { label, type, value, min, max, onChange, step } = props;
-    const checkedProp = type === 'checkbox' && !!value ? { checked: true } : {};
+    if (label === 'Invert colors') {
+        console.log(label, type, value);
+    }
+    const isCheckbox = type === 'checkbox';
+    const checkedProp = (isCheckbox && !!value) ? { checked: true } : { checked: false };
+    const labelEl = <label className="control-label">{label}</label>
+    const inputEl = <input className="control-input" value={value} {...checkedProp} step={step || 1} type={type} min={min || 0} max={max || 100} onChange={onChange} />
     return (
-        <div className="control">
-            <label className="control-label">{label}</label>
-            <input className="control-input" value={value} {...checkedProp} step={step || 1} type={type} min={min || 0} max={max || 100} onChange={onChange} />
+        <div className="control" style={{ flexDirection: isCheckbox ? 'row' : 'column' }} >
+            { isCheckbox ? inputEl : labelEl }
+            { isCheckbox ? labelEl : inputEl }
         </div>
     );
 }

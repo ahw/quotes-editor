@@ -49,8 +49,10 @@ class App extends React.Component {
                 marginBottom: 10,
                 margin: 0,
                 quoteAndSourcePadding: 5,
+                sourceTopMargin: 0,
                 borderRadius: 4,
             },
+            hideSource: false,
             invertedColors: false,
             showOverlay: false,
             hash: {
@@ -119,6 +121,10 @@ class App extends React.Component {
 
     handleOverlayToggle() {
         this.setState({ showOverlay: !this.state.showOverlay });
+    }
+
+    handleHideSource() {
+        this.setState({ hideSource: !this.state.hideSource });
     }
 
     handleFileSelect(evt) {
@@ -263,10 +269,12 @@ class App extends React.Component {
                     layoutStyles={layoutStyles}
                     onLayoutChange={this.handleLayoutChange.bind(this)}
                     onOverlayToggle={this.handleOverlayToggle.bind(this)}
+                    onHideSource={this.handleHideSource.bind(this)}
                     onFileSelect={this.handleFileSelect.bind(this)}
                     onInvertColors={this.handleInvertColors.bind(this)}
                     extraCss={this.state.hash.extraCss}
                     showOverlay={this.state.showOverlay}
+                    hideSource={this.state.hideSource}
                     invertedColors={this.state.invertedColors}
                     onCssChange={this.handleCssChange.bind(this)}/>
                 <QuoteContainer
@@ -281,6 +289,8 @@ class App extends React.Component {
                     backgroundRepeat={layoutStyles.backgroundRepeat}
                     quoteAndSourcePadding={layoutStyles.quoteAndSourcePadding}
                     borderRadius={layoutStyles.borderRadius}
+                    sourceTopMargin={layoutStyles.sourceTopMargin}
+                    hideSource={this.state.hideSource}
                     opacity={layoutStyles.opacity}
                     quotes={quotes}/>
                 <SpreadsheetDisplay quotes={quotes}/>

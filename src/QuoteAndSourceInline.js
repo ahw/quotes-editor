@@ -17,7 +17,6 @@ export default function QuoteAndSourceInline(props) {
         marginTop: 8,
         fontSize: '11px',
         fontFamily: 'Arial',
-        display: 'none',
     }
     
     let quoteStyle = {
