@@ -6,29 +6,13 @@ import QuoteEditor from './QuoteEditor';
 import LayoutEditor from './LayoutEditor';
 import QuoteContainer from './QuoteContainer';
 import SpreadsheetDisplay from './SpreadsheetDisplay';
+import { isValidLine, parseLine, clean, getOrdinalSuffix } from './utils';
 
 const defaultRawText = `She's nice. She's normal. - 8th Ave and W 41st St
 Have you met her yet? - Bryant Park
 No. Well—no. - 6th Ave and W 40th St
 She's psycho. - Bryant Park`;
 
-const iphoneNotesRegex = /^(.+)\s[-–—]\s(.*)$/
-const spreadsheetLineRegex = /^(.+)\t(.+)$/
-
-function getOrdinalSuffix(i) {
-    var j = i % 10,
-        k = i % 100;
-    if (j === 1 && k !== 11) {
-        return "st";
-    }
-    if (j === 2 && k !== 12) {
-        return "nd";
-    }
-    if (j === 3 && k !== 13) {
-        return "rd";
-    }
-    return "th";
-}
 
 
 
@@ -181,64 +165,9 @@ class App extends React.Component {
 
     getQuotes(rawText) {
         return rawText.split('\n')
-            .filter(line => line && (iphoneNotesRegex.test(line) || spreadsheetLineRegex.test(line)))
-            .map(line => {
-                let matches = []
-                if (iphoneNotesRegex.test(line)) {
-                    matches = line.match(iphoneNotesRegex)
-                } else if (spreadsheetLineRegex.test(line)) {
-                    matches = line.match(spreadsheetLineRegex)
-                } else {
-                    console.warn(`Line does not match any of the patterns "${line}"`);
-                }
-
-                let spreadsheetMatches = line.match(spreadsheetLineRegex)
-                let [_, quote, source] = matches
-
-                source = source
-                    .replace(/\sst\s/, " St ")
-                    .replace(/\sst$/, " St")
-                    .replace(/\s([nsew])\s/, (_, dir) => ' ' + dir.toUpperCase() + ' ')
-                    .replace(/^([nsew])\s/, (_, dir) => dir.toUpperCase() + ' ')
-                    .replace(/subway/, "Subway")
-                    .replace(/park/, "Park")
-                    .replace(/square/, "Square")
-                    .replace(/^([a-z])(.*)/, (wholeMatch, firstChar, rest) => {
-                        return firstChar.toUpperCase() + rest;
-                    })
-                    .replace(/([a-z])(\strain)/, (wholeMatch, firstChar, rest) => {
-                        return firstChar.toUpperCase() + rest;
-                    })
-                    .replace(/(\w)(\w*)\s(ave|st|blvd|dr)/gi, (wholeMatch, firstChar, restOfStreet, ave) => {
-                        return firstChar.toUpperCase() + restOfStreet + ' ' + ave.charAt(0).toUpperCase() + ave.substr(1);
-                    })
-                    .replace(/(\d+)\s(\d+)/, (whole, n, m) => {
-                        let aveNumber = n;
-                        let streetNumber = m;
-                        let streetDir = 'W';
-                        if (1 <= m && m <= 11) {
-                            aveNumber = m;
-                            streetNumber = n;
-                        }
-
-                        if (aveNumber <= 5) {
-                            streetDir = 'E';
-                        }
-
-                        const streetLine = `${streetDir} ${streetNumber}${getOrdinalSuffix(streetNumber)} St`;
-                        const aveLine = `${aveNumber}${getOrdinalSuffix(aveNumber)} Ave`;
-                        if (streetNumber === n) {
-                            // Street then ave
-                            return `${streetLine} and ${aveLine}`;
-                        } else {
-                            // Ave then street
-                            return `${aveLine} and ${streetLine}`;
-                        }
-                    });
-
-                // quote = quote.replace(/'(.*)'/g, '\u2018$1\u2019').replace(/"(.*)"/g, '\u201C$1\u201D')
-                return { quote, source }
-            })
+            .filter(isValidLine)
+            .map(parseLine)
+            .map(clean);
     }
 
     render() {
