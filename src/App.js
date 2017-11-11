@@ -13,9 +13,6 @@ Have you met her yet? - Bryant Park
 No. Well—no. - 6th Ave and W 40th St
 She's psycho. - Bryant Park`;
 
-
-
-
 class App extends React.Component {
     constructor() {
         super()
@@ -28,19 +25,20 @@ class App extends React.Component {
                 backgroundPosition: 'center center',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
-                color: '#ffffff',
+                color: '#000000', // '#ffffff',
                 opacity: 1,
                 marginBottom: 10,
-                marginRight: 0,
+                marginRight: 6,
                 margin: 0,
                 quoteAndSourcePadding: 5,
                 sourceTopMargin: 0,
-                borderRadius: 4,
-                inline: false,
-                overlayColor: '#000000',
+                borderRadius: 1,
+                inline: true, // false,
+                overlayColor: '#ffffff', // '#000000',
                 lineHeight: 'normal',
+                center: true,
             },
-            hideSource: false,
+            hideSource: true, // false,
             invertedColors: false,
             showOverlay: false,
             hash: {
@@ -221,6 +219,7 @@ class App extends React.Component {
                     backgroundImage={layoutStyles.backgroundImage}
                     marginBottom={layoutStyles.marginBottom}
                     marginRight={layoutStyles.marginRight}
+                    center={layoutStyles.center}
                     backgroundSize={layoutStyles.backgroundSize}
                     backgroundPosition={layoutStyles.backgroundPosition}
                     backgroundRepeat={layoutStyles.backgroundRepeat}

@@ -3,24 +3,29 @@ import React from 'react';
 export default function QuoteAndSource(props) {
     
     const backgroundColor = props.invertedColors ? props.color : props.backgroundColor;
+    const overlayColor = props.invertedColors ? props.color : props.overlayColor;
     const opacity = props.opacity;
 
     const display = props.inline ? 'inline' : 'block'; 
     const quoteContainerStyle = {
         marginBottom: props.marginBottom,
-        padding: props.inline ? `${props.padding}px 0` : props.padding,
+        borderRadius: props.borderRadius,
+        // xxpadding: props.inline ? `${props.padding}px 0` : props.padding,
+        padding: props.padding,
+        WebkitBoxDecorationBreak: 'clone',
+        boxDecorationBreak: 'clone',
         display,
-        background: props.inline ? props.overlayColor : 'transparent',
+        background: props.inline ? overlayColor : 'transparent',
         marginRight: props.marginRight,
-        boxShadow: `
-             ${props.padding}px 0 0 ${props.inline ? props.overlayColor : 'transparent'},
-            -${props.padding}px 0 0 ${props.inline ? props.overlayColor : 'transparent'}`,
+        // xxboxShadow: `
+        //      ${props.padding}px 0 0 ${props.inline ? props.overlayColor : 'transparent'},
+        //     -${props.padding}px 0 0 ${props.inline ? props.overlayColor : 'transparent'}`,
     };
     const sourceStyle = Object.assign({ marginTop: props.sourceTopMargin }, { display });
     const overlayStyle = {
         borderRadius: props.borderRadius,
         opacity,
-        backgroundColor: props.overlayColor,
+        backgroundColor: overlayColor,
         display: props.inline ? 'none' : 'block',
     };
 
