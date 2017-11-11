@@ -16,7 +16,7 @@ export default function QuoteAndSource(props) {
         boxDecorationBreak: 'clone',
         display,
         background: props.inline ? overlayColor : 'transparent',
-        marginRight: props.marginRight,
+        marginRight: props.inlineSpacing,
         // xxboxShadow: `
         //      ${props.padding}px 0 0 ${props.inline ? props.overlayColor : 'transparent'},
         //     -${props.padding}px 0 0 ${props.inline ? props.overlayColor : 'transparent'}`,

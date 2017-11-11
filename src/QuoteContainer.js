@@ -10,7 +10,7 @@ export default function QuoteContainer(props) {
         backgroundRepeat: props.backgroundRepeat,
         backgroundPosition: props.backgroundPosition,
         backgroundSize: props.backgroundSize,
-        padding: `40px ${props.padding}px`,
+        padding: `${props.paddingTopBottom}px ${props.paddingRightLeft}px`,
         width: '100vw',
         display: props.inline ? 'block' : 'flex',
         alignItems: props.inline ? 'center' : 'stretch',
@@ -30,7 +30,7 @@ export default function QuoteContainer(props) {
             <QuoteAndSource
                     key={item.quote + item.source}
                     marginBottom={props.marginBottom}
-                    marginRight={props.marginRight}
+                    inlineSpacing={props.inlineSpacing}
                     padding={props.quoteAndSourcePadding}
                     sourceTopMargin={props.sourceTopMargin}
                     borderRadius={props.borderRadius}

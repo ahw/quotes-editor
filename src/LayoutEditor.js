@@ -35,11 +35,12 @@ export default function LayoutEditor(props) {
         <Control label="Overlay opacity" type="range" step={0.02} min={0} max={1} value={props.layoutStyles.opacity} onChange={props.onLayoutChange.bind(this, 'opacity')} />
         <Control label="Text color" type="color" value={props.layoutStyles.color} onChange={props.onLayoutChange.bind(this, 'color')} />
         <Control label="Quote spacing" type="range" value={props.layoutStyles.marginBottom} min={-40} max={100} onChange={props.onLayoutChange.bind(this, 'marginBottom')} />
-        <Control label="Side margins" type="range" min={0} max={200} value={props.layoutStyles.padding} onChange={props.onLayoutChange.bind(this, 'padding')} />
+        <Control label="Right/left margins" type="range" min={0} max={200} value={props.layoutStyles.paddingRightLeft} onChange={props.onLayoutChange.bind(this, 'paddingRightLeft')} />
+        <Control label="Top/bottom margins" type="range" min={0} max={200} value={props.layoutStyles.paddingTopBottom} onChange={props.onLayoutChange.bind(this, 'paddingTopBottom')} />
         <Control label="Source top margin" type="range" min={0} max={50} value={props.layoutStyles.sourceTopMargin} onChange={props.onLayoutChange.bind(this, 'sourceTopMargin')} />
         <Control label="Inner padding" type="range" min={0} max={100} value={props.layoutStyles.quoteAndSourcePadding} onChange={props.onLayoutChange.bind(this, 'quoteAndSourcePadding')} />
         <Control label="Border radius" type="range" min={0} max={50} value={props.layoutStyles.borderRadius} onChange={props.onLayoutChange.bind(this, 'borderRadius')} />
         <Control label="Inline line height" type="range" min={0} max={10} step={0.01} value={props.layoutStyles.lineHeight} onChange={props.onLayoutChange.bind(this, 'lineHeight')} />
-        <Control label="Inline spacing" type="range" value={props.layoutStyles.marginRight} min={0} max={50} onChange={props.onLayoutChange.bind(this, 'marginRight')} />
+        <Control label="Inline spacing" type="range" value={props.layoutStyles.inlineSpacing} min={0} max={50} onChange={props.onLayoutChange.bind(this, 'inlineSpacing')} />
     </div>);
 }

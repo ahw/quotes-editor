@@ -19,7 +19,8 @@ class App extends React.Component {
         this.state = {
             editorHasFocus: false,
             layoutStyles: {
-                padding: 30,
+                paddingRightLeft: 30,
+                paddingTopBottom: 40,
                 backgroundColor: '#000000',
                 backgroundImage: 'none',
                 backgroundPosition: 'center center',
@@ -28,7 +29,7 @@ class App extends React.Component {
                 color: '#000000', // '#ffffff',
                 opacity: 1,
                 marginBottom: 10,
-                marginRight: 6,
+                inlineSpacing: 6,
                 margin: 0,
                 quoteAndSourcePadding: 5,
                 sourceTopMargin: 0,
@@ -212,13 +213,14 @@ class App extends React.Component {
                     invertedColors={this.state.invertedColors}
                     inline={layoutStyles.inline}
                     lineHeight={layoutStyles.lineHeight}
-                    padding={layoutStyles.padding}
+                    paddingRightLeft={layoutStyles.paddingRightLeft}
+                    paddingTopBottom={layoutStyles.paddingTopBottom}
                     color={layoutStyles.color}
                     backgroundColor={layoutStyles.backgroundColor}
                     overlayColor={layoutStyles.overlayColor}
                     backgroundImage={layoutStyles.backgroundImage}
                     marginBottom={layoutStyles.marginBottom}
-                    marginRight={layoutStyles.marginRight}
+                    inlineSpacing={layoutStyles.inlineSpacing}
                     center={layoutStyles.center}
                     backgroundSize={layoutStyles.backgroundSize}
                     backgroundPosition={layoutStyles.backgroundPosition}
