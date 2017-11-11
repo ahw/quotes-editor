@@ -12,11 +12,13 @@ export default function QuoteContainer(props) {
         backgroundSize: props.backgroundSize,
         padding: `40px ${props.padding}px`,
         width: '100vw',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        minHeight: '100vh',
+        display: props.inline ? 'block' : 'flex',
+        flexDirection: props.inline ? 'row' : 'column',
+        justifyContent: props.inline ? 'flex-start' : 'center',
+        minHeight: props.inline ? 'auto' : '100vh',
+        flexWrap: props.inline ? 'wrap' : 'nowrap',
         boxSizing: 'border-box',
+        lineHeight: props.lineHeight,
     }
 
 
@@ -25,14 +27,17 @@ export default function QuoteContainer(props) {
             <QuoteAndSource
                     key={item.quote + item.source}
                     marginBottom={props.marginBottom}
+                    marginRight={props.marginRight}
                     padding={props.quoteAndSourcePadding}
                     sourceTopMargin={props.sourceTopMargin}
                     borderRadius={props.borderRadius}
                     backgroundColor={props.backgroundColor}
+                    overlayColor={props.overlayColor}
                     opacity={props.opacity}
                     color={props.color}
                     invertedColors={props.invertedColors}
                     hideSource={props.hideSource}
+                    inline={props.inline}
                     quote={item.quote}
                     source={item.source} />
         );

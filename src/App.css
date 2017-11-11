@@ -143,6 +143,10 @@
     bottom: 0;
 }
 
+.quote-container-inner {
+    display: inline;
+    position: relative;
+}
 
 .quote-text {
     font-weight: normal;
@@ -152,7 +156,7 @@
 .source-text {
     display: block;
     text-align: right;
-    margin-top: 8;
+    margin-top: 8px;
     font-size: 11px;
     font-family: Arial;
 }

@@ -12,9 +12,6 @@ import BackgroundUploader from './BackgroundUploader';
  */
 export default function Control(props) {
     const { label, type, value, min, max, onChange, step } = props;
-    if (label === 'Invert colors') {
-        console.log(label, type, value);
-    }
     const isCheckbox = type === 'checkbox';
     const checkedProp = (isCheckbox && !!value) ? { checked: true } : { checked: false };
     const labelEl = <label className="control-label">{label}</label>

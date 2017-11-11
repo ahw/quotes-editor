@@ -47,10 +47,14 @@ class App extends React.Component {
                 color: '#ffffff',
                 opacity: 1,
                 marginBottom: 10,
+                marginRight: 0,
                 margin: 0,
                 quoteAndSourcePadding: 5,
                 sourceTopMargin: 0,
                 borderRadius: 4,
+                inline: false,
+                overlayColor: '#000000',
+                lineHeight: 'normal',
             },
             hideSource: false,
             invertedColors: false,
@@ -158,11 +162,11 @@ class App extends React.Component {
             return
         }
 
-        let value = e;
         if (e.target) {
             e.preventDefault();
         }
 
+        let value = e;
         if (e.target && typeof e.target.value !== 'undefined') {
             value = e.target.value
         }
@@ -279,11 +283,15 @@ class App extends React.Component {
                     onCssChange={this.handleCssChange.bind(this)}/>
                 <QuoteContainer
                     invertedColors={this.state.invertedColors}
+                    inline={layoutStyles.inline}
+                    lineHeight={layoutStyles.lineHeight}
                     padding={layoutStyles.padding}
                     color={layoutStyles.color}
                     backgroundColor={layoutStyles.backgroundColor}
+                    overlayColor={layoutStyles.overlayColor}
                     backgroundImage={layoutStyles.backgroundImage}
                     marginBottom={layoutStyles.marginBottom}
+                    marginRight={layoutStyles.marginRight}
                     backgroundSize={layoutStyles.backgroundSize}
                     backgroundPosition={layoutStyles.backgroundPosition}
                     backgroundRepeat={layoutStyles.backgroundRepeat}
